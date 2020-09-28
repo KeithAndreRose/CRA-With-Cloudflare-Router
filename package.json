@@ -1,7 +1,10 @@
 {
+  "name": "cra-with-cloudflare-router",
+  "version": "1.0.0",
+  "description": "A template of a create react app (Inculdes: sass, react-router, and context store) and a cloudflare worker. ",
   "scripts": {
     "deploy" : "cd ./client; yarn build; cd ..; wrangler publish",
     "deploy:production" : "cd ./client; yarn build; cd ..; wrangler publish --env production"
-
-  }
+  },
+  "author": "Keith Rose <andrerose722@gmail.com>"
 }
