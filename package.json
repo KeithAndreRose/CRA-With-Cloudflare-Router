@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "deploy" : "cd ./client; yarn build; cd ..; wrangler publish",
+    "deploy:production" : "cd ./client; yarn build; cd ..; wrangler publish --env production"
+
+  }
+}

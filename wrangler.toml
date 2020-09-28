@@ -1,0 +1,13 @@
+name = "myapp"
+type = "webpack"
+account_id = "b7222e43be41527c8d04390cc96c670e"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "./client/build"
+entry-point = "serverless"
+
+[env.production]
+name = "myapp-prod"
