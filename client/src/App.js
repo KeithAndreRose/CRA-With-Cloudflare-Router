@@ -21,7 +21,7 @@ const apiEndpoint =
 
 function App() {
   const [state, dispatch] = useReducer(EventReducer, {})
-
+  const {ready} = state
   useEffect(()=> {
     dispatch({type: 'reset'})
 
