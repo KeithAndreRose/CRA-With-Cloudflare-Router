@@ -1,12 +1,12 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { 
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
 import { useFetch } from './hooks';
-import { AppReducer } from './lib/app';
-import { DispatchContext, StateContext } from './lib/app/context';
+import EventReducer from './lib/events';
+import { DispatchProvider, StateProvider } from './lib/providers';
 import { IndexRoute, NotFoundRoute } from './routes';
 import './scss/App.scss';
 
@@ -20,25 +20,47 @@ const apiEndpoint =
     : '/api' // Live Instance
 
 function App() {
-  const [state, dispatch] = useReducer(AppReducer, {})
+  const [state, dispatch] = useReducer(EventReducer, {})
 
-  const {data, loading} = useFetch(apiEndpoint)
-  console.log(`useFetch(${apiEndpoint})`, {data, loading})
+  useEffect(()=> {
+    dispatch({type: 'reset'})
 
-  return (
+    dispatch({type: 'suspend'})
+
+    dispatch({type: 'ready'})
+  },[])
+
+  return ready 
+  ? (
     <div className="App">
       <Router>
-        <DispatchContext.Provider value={dispatch}>
-          <StateContext.Provider value={state}>
+        <DispatchProvider value={dispatch}>
+          <StateProvider value={state}>
             <Switch>
-              <Route exact path='/' render={()=> <IndexRoute/>} />
-              <Route path='' render={()=> <NotFoundRoute/>} />
+              <AppRoutesAndViews/>
             </Switch>
-          </StateContext.Provider>
-        </DispatchContext.Provider>
+          </StateProvider>
+        </DispatchProvider>
       </Router>
     </div>
-  );
+  ) 
+  : <AppSplashScreen/>
 }
+
+
+// DECLARE APP ROUTES
+const AppRoutesAndViews = () => (
+  <>
+    <Route exact path='/' render={()=> <IndexRoute/>} />
+    <Route path='' render={()=> <NotFoundRoute/>} />
+  </>
+)
+
+// SPLASHSCREEN
+const AppSplashScreen = () => (
+  <div className="appSplashscreen">
+    <span>App Loading...</span>
+  </div>
+)
 
 export default App;

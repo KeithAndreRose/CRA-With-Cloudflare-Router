@@ -1,4 +1,3 @@
-
 /**
  * Our main app reducer
  * 
@@ -6,7 +5,7 @@
  * @param {ReducerAction} action 
  */
 
-export default function AppReducer(state, action){
+export default function EventReducer(state, action){
   const {type, payload} = action
   switch (type) {
     case 'reset':
