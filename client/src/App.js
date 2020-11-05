@@ -26,9 +26,7 @@ function App() {
       <Router>
         <DispatchProvider value={dispatch}>
           <StateProvider value={state}>
-            <Switch>
               <AppRoutesAndViews/>
-            </Switch>
           </StateProvider>
         </DispatchProvider>
       </Router>
@@ -41,8 +39,10 @@ function App() {
 // DECLARE APP ROUTES
 const AppRoutesAndViews = () => (
   <>
-    <Route exact path='/' render={()=> <IndexRoute/>} />
-    <Route path='' render={()=> <NotFoundRoute/>} />
+    <Switch>
+      <Route exact path='/' render={()=> <IndexRoute/>} />
+      <Route path='' render={()=> <NotFoundRoute/>} />
+    </Switch>
   </>
 )
 

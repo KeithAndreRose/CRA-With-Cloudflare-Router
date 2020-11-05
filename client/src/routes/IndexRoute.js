@@ -1,9 +1,6 @@
 import React from 'react'
+import { IndexView } from './views'
 
 export default function IndexRoute() {
-  return (
-    <div>
-      Caio Mondo
-    </div>
-  )
+  return ( <IndexView/> )
 }
