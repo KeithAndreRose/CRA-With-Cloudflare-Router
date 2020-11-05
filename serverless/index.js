@@ -1,6 +1,7 @@
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
 import Router from './router'
-import {handleOptions, respondWith} from './lib/utils'
+import {handleOptions} from './lib/utils'
+import { DefaultRoute, HelloRoute } from './routes'
 
 // Entry
 addEventListener('fetch', event => {
@@ -43,25 +44,8 @@ async function handleRouterRequest(request) {
 
   const r = new Router()
 
-  
-  // Root route response
-  r.get('.*/hello', () => 
-    respondWith(
-      new Response('Hi, you found a worker API', { headers: new Headers({"content-type": "application/json"}) })
-    )
-  )
-
-  // Catch all route/404 response
-  r.get( '.*/.*',
-    () =>
-      respondWith(
-        new Response("Nothing's Here", {
-          status: 404,
-          statusText: 'Not Found',
-          headers: new Headers({"content-type": "application/json"}),
-        })
-      )
-  ) 
+  r.get('.*/hello', HelloRoute)
+  r.get( '.*/.*', DefaultRoute) 
 
   const response = await r.route(request)
   return response
